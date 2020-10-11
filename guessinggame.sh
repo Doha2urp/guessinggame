@@ -1,30 +1,24 @@
 function guessinggame(){
 local fcount=$( ls | wc -l )
 local num
-local dif
-echo "Plese Guess how many files are in the directory?"
-while [[ $fcount -gt 0 ]]
+loop=true
+while [[ $loop -eq false ]]
 do
+	echo "Plese Guess how many files are in this directory?"
 	read num
-	if [[ $num -lt 0 ]] || [[ $num -eq 0 ]]
+	if [[ num -gt $fcount ]]
 	then
-		echo "Input is invalid! Please run the programm again..."
+		echo "It's too big!"
+	elif [[ num -lt $fcount ]]
+	then
+		echo "It's too low!"
+	elif [[ num -eq $fcount ]]
+	then
+		echo "Congrats! It's Match!"
 		exit
+	else
+		echo "Wrong Input!"
 	fi
-	let dif=$fcount-$num
-	if [[ $dif -ne 0 ]] && [[ $dif -lt -3 ]]
-	then
-		echo "It is too Big! Please try again"
-	elif [[ $dif -ne 0 ]] && [[ $dif -gt 3 ]]
-	then
-		echo "It is too Low! Please try again"
-	elif [[ $dif -ne 0 ]] && [[ $dif -gt -3 ]] || [[ $dif -eq -3 ]] && [[ $dif -lt 3 ]] || [[ $dif -eq 3 ]]
-	then
-		echo "You are very close to the answer. Please Enter it Again"
-	else [[ $dif -eq 0 ]]
-		echo "Congrats! its match..."
-		exit	
-	fi	
 done
 }
 guessinggame
